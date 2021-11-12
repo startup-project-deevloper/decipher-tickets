@@ -60,6 +60,7 @@ function App() {
     const nft = await getNFT(asaId)
 
     setNFT(nft)
+    setClaimable(false)
     setOpen(false)
     setLoading(false)
 
@@ -78,7 +79,6 @@ Enjoy it as a commemorative token that you’ve earned by being part of the Algo
 See you online at Decipher!
   
  */
-
   return (
     <div className="App" style={{background: '#000'}}>
       <Navbar style={{background: 'linear-gradient(90deg,#b72375 3%,#f37e33 97%)'}}>
@@ -112,7 +112,7 @@ See you online at Decipher!
               </div>
 
 
-              <div className='collect-button' >
+              <div className='collect-button'  style={{visibility: claimable?'visible':'hidden'}}   >
                 <Button 
                     style={{color: 'white', borderColor: 'white', borderRadius: '8px'}}
                     minimal={true} 
@@ -122,7 +122,7 @@ See you online at Decipher!
                     icon='circle' 
                     text='Collect' 
                     onClick={handleCollect}  
-                    disabled={!claimable || !connected}
+                    disabled={!connected}
                     loading={loading}
                   />
                 </div>
@@ -172,11 +172,12 @@ function ClaimDialog(props: ClaimDialogProps){
   }, [signed, progress])
 
   return (
-      <Dialog isOpen={isOpen} onClose={handleClose}>
+      <Dialog isOpen={isOpen} onClose={handleClose} style={{background: '#000'}}>
         <div className={Classes.DIALOG_BODY}>
           {!signed?(
           <div className='container'>
-            <p>Please Approve the transaction in your Mobile Wallet</p>
+            <p>Please Approve the transaction in your Mobile Wallet. </p>
+            <p>You may have to refresh your Wallet Connect session under Settings - Wallet Connect </p>
           </div>
           ):(
             <ProgressBar animate={true} intent='success' value={progress} />

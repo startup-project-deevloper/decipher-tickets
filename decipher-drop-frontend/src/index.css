@@ -22,7 +22,7 @@ html, body, #root, .App {
 }
 
 .ticket-card {
-	max-width: 80vw;
+	max-width: 70vw;
 	background: transparent;
 	border: 4px solid white;
 	border-radius: 12px;
