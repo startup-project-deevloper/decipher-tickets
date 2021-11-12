@@ -94,7 +94,7 @@ See you online at Decipher!
         </Navbar.Group>
       </Navbar>
       <div className='container'>
-        <Card elevation={Elevation.THREE}>
+        <Card elevation={Elevation.FOUR} className='ticket-card'>
           <div className='content'>
 
             <div className='content-piece' >
