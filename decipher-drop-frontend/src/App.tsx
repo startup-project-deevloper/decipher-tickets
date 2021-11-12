@@ -27,15 +27,18 @@ function App() {
   const addr    = params.get("addr")
   const secret  = params.get("secret")
 
-  //useEffect(()=>{
-  //  if(secret === null || addr === null || escrow === null){
-  //    setClaimable(false)
-  //  }
-  //}, [escrow, addr, secret])
+  useEffect(()=>{
+    if(secret === null || addr === null || escrow === null){
+      console.log("here i am")
+      setClaimable(false)
+    }
+  }, [escrow, addr, secret])
   
 
   function updateWallet(sw: SessionWallet){ 
     setSessionWallet(sw)
+
+    console.log("In update wallet with account list: ", sw.accountList())
     setAccounts(sw.accountList())
     setConnected(sw.connected())
   }
@@ -81,7 +84,7 @@ See you online at Decipher!
     <div className="App">
       <Navbar>
         <Navbar.Group align={Alignment.LEFT}>
-          <Navbar.Heading><img className='header-icon' src='favicon.ico' /></Navbar.Heading>
+          <Navbar.Heading><img alt='Algorand A' className='header-icon' src='favicon.ico' /></Navbar.Heading>
         </Navbar.Group>
         <Navbar.Group  align={Alignment.RIGHT}>
           <AlgorandWalletConnector  
@@ -98,7 +101,7 @@ See you online at Decipher!
           <div className='content'>
 
             <div className='content-piece' >
-              <img className='gator' src={nft.url} />
+              <img alt='NFT' className='gator' src={nft.url} />
             </div>
             <div className='content-details' >
 
@@ -120,7 +123,7 @@ See you online at Decipher!
                     text='Collect' 
                     onClick={handleCollect}  
                     disabled={!claimable || !connected}
-                    loading={open}
+                    loading={loading}
                   />
                 </div>
             </div>
@@ -149,11 +152,13 @@ function ClaimDialog(props: ClaimDialogProps){
     setSigned(props.signed)
   }, [props])
 
-  let p = 0
   useEffect(()=>{
-    if(!props.signed || p >= 1.0) return;
+    let p = 0
+    if(!signed || progress > 0 || progress >= 1.0) return;
 
-    const step = 100 / (8 * 1000)
+    // 8 second "fake" timer just to give enough time to submit txn and 
+    // have it confirmed on the network, then load the NFT details
+    const step = 100 / (8 * 1000) 
     const interval = setInterval(()=>{
         p += step
         if(p > 1.0) {
@@ -163,7 +168,8 @@ function ClaimDialog(props: ClaimDialogProps){
         }
         setProgress(p)
     }, 100)
-  }, [signed, p])
+
+  }, [signed, progress])
 
   return (
       <Dialog isOpen={isOpen} onClose={handleClose}>

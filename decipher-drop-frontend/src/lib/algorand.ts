@@ -1,18 +1,22 @@
-import algosdk, { encodeUnsignedTransaction, generateAccount, LogicSigAccount, makePaymentTxnWithSuggestedParams, Transaction, TransactionType } from 'algosdk'
+import algosdk, { LogicSigAccount, Transaction, TransactionType } from 'algosdk'
 import { SessionWallet } from 'algorand-session-wallet';
 import base32 from 'hi-base32';
 import nacl from 'tweetnacl';
+
 //@ts-ignore
 import escrow_template from './contracts/escrow.tmpl.teal'
 
-
 export const conf = {
     seeder: "XPLR7X7LQESKDK3SJYGLM7XJRN7FSINV3AZXKAQIZM4CXAM2ATLQQYXLCA",
-    network: "TestNet"
+    network: "TestNet",
+    algod : {
+        host : "https://testnet.algoexplorerapi.io",
+        port : "",
+        token : "",
+    }
 }
 
-
-const client = new algosdk.Algodv2("", "https://testnet.algoexplorerapi.io", "")
+const client = new algosdk.Algodv2(conf.algod.token, conf.algod.host , conf.algod.port)
 
 interface SignedTxn {
     txID: string,

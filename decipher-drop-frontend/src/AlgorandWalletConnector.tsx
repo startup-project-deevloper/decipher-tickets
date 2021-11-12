@@ -64,6 +64,20 @@ export default function AlgorandWalletConnector(props:AlgorandWalletConnectorPro
             sw.disconnect()
         }
 
+        const interval = setInterval(()=>{
+            // If they've already connected, we wont get an on connect, have to check here
+            const wc = localStorage.getItem("walletconnect")
+            if(wc === null || wc === undefined || wc === "") return;
+
+            const wcObj = JSON.parse(wc)
+            const accounts = wcObj.accounts
+            if(accounts.length>0){
+                clearInterval(interval)
+                sw.setAccountList(wcObj.accounts)
+                props.updateWallet(new SessionWallet(sw.network, sw.permissionCallback, choice))
+            }
+        }, 250)
+
         props.updateWallet(sw)
 
         setSelectorOpen(false)
@@ -76,6 +90,9 @@ export default function AlgorandWalletConnector(props:AlgorandWalletConnectorPro
 
     const walletOptions = []
     for(const [k,v] of Object.entries(allowedWallets)){
+        // NOTE: remove if you want other wallets
+        if(k !== "wallet-connect") continue
+
         walletOptions.push((
         <li key={k}>
             <Button id={k}
