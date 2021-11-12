@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { SessionWallet } from 'algorand-session-wallet';
 import AlgorandWalletConnector from './AlgorandWalletConnector'
-import { Alignment, Button, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
+import { Alignment, Button, Card, Collapse, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
 
@@ -36,8 +36,6 @@ function App() {
 
   function updateWallet(sw: SessionWallet){ 
     setSessionWallet(sw)
-
-    console.log("In update wallet with account list: ", sw.accountList())
     setAccounts(sw.accountList())
     setConnected(sw.connected())
   }
@@ -66,19 +64,18 @@ function App() {
 
   }
 
- /*
+  // For #1-444 (IRL)
+  const irl_success = `
+  Congrats on successfully collecting your Decipher Ticket!
+  Please make sure the asset is in your Algorand Mobile Wallet and ready to be presented when you arrive at the venue.
+  See you at Decipher!`.trim()
 
-For #1-444 (IRL)
-Congrats on successfully collecting your Decipher Ticket!
-Please make sure the asset is in your Algorand Mobile Wallet and ready to be presented when you arrive at the venue.
-See you at Decipher!
------------------------------------
-For #445-888 (Virtual)
-Congrats on successfully collecting your Algo Gator NFT!
-Enjoy it as a commemorative token that you’ve earned by being part of the Algorand community and signing up as a virtual VIP.
-See you online at Decipher!
-  
- */
+  // For #445-888 (Virtual)
+  const virtual_success = `
+    Congrats on successfully collecting your Algo Gator NFT!
+    Enjoy it as a commemorative token that you’ve earned by being part of the Algorand community and signing up as a virtual VIP.
+    See you online at Decipher!`.trim()
+
   return (
     <div className="App" style={{background: '#000'}}>
       <Navbar style={{background: 'linear-gradient(90deg,#b72375 3%,#f37e33 97%)'}}>
@@ -111,7 +108,6 @@ See you online at Decipher!
                 </p>
               </div>
 
-
               <div className='collect-button'  style={{visibility: claimable?'visible':'hidden'}}   >
                 <Button 
                     style={{color: 'white', borderColor: 'white', borderRadius: '8px'}}
@@ -130,10 +126,40 @@ See you online at Decipher!
           </div>
         </Card>
       </div>
+
+      <div className='container'>
+        <HelpDropdown />
+      </div>
+
       <ClaimDialog open={open} signed={signed} />
     </div>
   );
+
 }
+
+function HelpDropdown() {
+  const [isOpen, setIsOpen] = React.useState(false)
+  function handleClick() { setIsOpen(!isOpen) }
+
+  return (
+    <div className='help-container'>
+      <Button icon='help' minimal={true} intent='primary' outlined={true} onClick={handleClick} >
+        Need Help?
+      </Button>
+      <Collapse isOpen={isOpen}  >
+        <div className='container'>
+          <div className='help-text' >
+            <p style={{color: 'white'}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris nunc congue nisi vitae suscipit. Feugiat pretium nibh ipsum consequat. Pellentesque eu tincidunt tortor aliquam nulla. Ullamcorper eget nulla facilisi etiam dignissim diam quis. Massa sed elementum tempus egestas sed sed risus. Natoque penatibus et magnis dis parturient. Cursus sit amet dictum sit amet justo donec. Id leo in vitae turpis massa sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus.
+            </p>
+          </div>
+        </div>
+      </Collapse>
+    </div>
+  )
+
+}
+
 
 interface ClaimDialogProps {
   open: boolean
@@ -175,9 +201,10 @@ function ClaimDialog(props: ClaimDialogProps){
       <Dialog isOpen={isOpen} onClose={handleClose} style={{background: '#000'}}>
         <div className={Classes.DIALOG_BODY}>
           {!signed?(
-          <div className='container'>
-            <p>Please Approve the transaction in your Mobile Wallet. </p>
-            <p>You may have to refresh your Wallet Connect session under Settings - Wallet Connect </p>
+          <div className='container' style={{color:'white'}}>
+            <p><b>Please Approve the transaction in your Mobile Wallet. </b></p>
+            <p>You may have to refresh your Wallet Connect session</p>
+            <p>On your mobile app under Settings - Wallet Connect</p>
           </div>
           ):(
             <ProgressBar animate={true} intent='success' value={progress} />
