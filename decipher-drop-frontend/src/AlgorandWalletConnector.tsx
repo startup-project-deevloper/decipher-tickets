@@ -115,6 +115,7 @@ export default function AlgorandWalletConnector(props:AlgorandWalletConnectorPro
         <div>
             <Button
                 minimal={true}
+                style={{color: 'white', borderColor: 'white', borderRadius: '8px'}}
                 rightIcon='selection'
                 intent='warning'
                 outlined={true}
