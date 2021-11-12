@@ -29,7 +29,6 @@ function App() {
 
   useEffect(()=>{
     if(secret === null || addr === null || escrow === null){
-      console.log("here i am")
       setClaimable(false)
     }
   }, [escrow, addr, secret])
