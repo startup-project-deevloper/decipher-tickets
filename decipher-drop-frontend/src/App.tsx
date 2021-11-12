@@ -80,8 +80,8 @@ See you online at Decipher!
  */
 
   return (
-    <div className="App">
-      <Navbar>
+    <div className="App" style={{background: '#000'}}>
+      <Navbar style={{background: 'linear-gradient(90deg,#b72375 3%,#f37e33 97%)'}}>
         <Navbar.Group align={Alignment.LEFT}>
           <Navbar.Heading><img alt='Algorand A' className='header-icon' src='favicon.ico' /></Navbar.Heading>
         </Navbar.Group>
@@ -97,15 +97,15 @@ See you online at Decipher!
       </Navbar>
       <div className='container'>
         <Card elevation={Elevation.FOUR} className='ticket-card'>
-          <div className='content'>
+          <div className='content' >
 
             <div className='content-piece' >
               <img alt='NFT' className='gator' src={nft.url} />
             </div>
             <div className='content-details' >
 
-              <div className='detail-prose' >
-                <h3> Greetings Algonaut</h3>
+              <div className='detail-prose' style={{color: 'white'}} >
+                <h3> Greetings Algonaut!</h3>
                 <p> 
                   Connect your wallet and claim your ticket
                 </p>
@@ -114,6 +114,7 @@ See you online at Decipher!
 
               <div className='collect-button' >
                 <Button 
+                    style={{color: 'white', borderColor: 'white', borderRadius: '8px'}}
                     minimal={true} 
                     outlined={true} 
                     intent='success' 
