@@ -67,7 +67,7 @@ function App() {
     <div>
       <h3> Greetings Algonaut!</h3> 
       <p> 
-      Connect your wallet and claim your ticket
+      Connect your wallet and collect your NFT ticket
       </p>
     </div>
   )
@@ -168,7 +168,37 @@ function HelpDropdown() {
         <div className='container'>
           <div className='help-text' >
             <p style={{color: 'white'}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris nunc congue nisi vitae suscipit. Feugiat pretium nibh ipsum consequat. Pellentesque eu tincidunt tortor aliquam nulla. Ullamcorper eget nulla facilisi etiam dignissim diam quis. Massa sed elementum tempus egestas sed sed risus. Natoque penatibus et magnis dis parturient. Cursus sit amet dictum sit amet justo donec. Id leo in vitae turpis massa sed. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus.
+                <h3>How to collect your Algo Gator</h3>
+
+                <p>First, you will need to download the Algorand Wallet and load it with at least 0.3 Algo.</p>
+
+                <p>Second, click the “Connect” button on the top right of this page and proceed as follows</p>
+
+                <h4>If you are viewing this page on Mobile: </h4>
+
+                <ul>
+                  <li>A pop-up will appear with the toggle on “Mobile” -- Click “Connect”</li>
+                  <li>Return to the landing page on your mobile browser. Your Algorand Wallet address should now appear on the top right corner of the page</li>
+                  <li>Click “Collect” to receive your asset</li>
+                </ul>
+
+                <h4>If you are viewing this page on your Desktop:</h4>
+
+                <ul>
+                  <li>Scan the QR code using the scanner within your mobile Algorand Wallet </li>
+                  <li>A pop-up will appear within the mobile app -- Click “Connect”</li>
+                  <li>At this point, your Algorand Wallet address will appear on the top right corner of the desktop landing page</li>
+                  <li>Click “Collect” on the web page, and then “Approve” the transaction within your mobile wallet</li>
+                </ul>
+
+                <p>
+                  Once approved and the transaction is processed, your unique 1/1 Algo Gator NFT asset will appear on this page and within your mobile Algorand wallet. (Note that the Algorand Wallet will show the Asset Name and Asset ID, not an actual image of the NFT). 
+                </p>
+
+                <p>
+                  If you have any issues with the claiming process, please reach out for assistance. 
+                </p>
+
             </p>
           </div>
         </div>
