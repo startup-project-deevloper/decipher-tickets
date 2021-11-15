@@ -4,7 +4,7 @@ import AlgorandWalletConnector from './AlgorandWalletConnector'
 import { Alignment, Button, Card, Collapse, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
-
+import { BrowserView, MobileView } from 'react-device-detect'
 
 
 
@@ -128,7 +128,7 @@ function App() {
 
               <div className='collect-button' >
                 <Button 
-                    style={{color: 'white', borderColor: 'white', borderRadius: '8px'}}
+                    style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
                     minimal={true} 
                     outlined={true} 
                     intent='success' 
@@ -157,40 +157,36 @@ function App() {
 
 function HelpDropdown() {
   const [isOpen, setIsOpen] = React.useState(false)
-  function handleClick() { setIsOpen(!isOpen) }
 
   return (
     <div className='help-container'>
-      <Button icon='help' minimal={true} intent='primary' outlined={true} onClick={handleClick} >
+      <Button icon='help' minimal={true} intent='primary' outlined={true} onClick={() => setIsOpen(true)} >
         Need Help?
       </Button>
-      <Collapse isOpen={isOpen}  >
+      <Dialog isOpen={isOpen} canEscapeKeyClose={true} canOutsideClickClose={true} isCloseButtonShown={true} onClose={() => setIsOpen(false)} >
         <div className='container'>
           <div className='help-text' >
-            <p style={{color: 'white'}}>
+            <p style={{color: '#000 !important'}}>
                 <h3>How to collect your Algo Gator</h3>
 
                 <p>First, you will need to download the <a href="https://algorandwallet.com/" >Algorand Wallet</a> and load it with at least 0.3 Algo.</p>
 
                 <p>Second, click the “Connect” button on the top right of this page and proceed as follows</p>
-
-                <h4>If you are viewing this page on Mobile: </h4>
-
-                <ul>
-                  <li>A pop-up will appear with the toggle on “Mobile” -- Click “Connect”</li>
-                  <li>Return to the landing page on your mobile browser. Your Algorand Wallet address should now appear on the top right corner of the page</li>
-                  <li>Click “Collect” to receive your asset</li>
-                </ul>
-
-                <h4>If you are viewing this page on your Desktop:</h4>
-
-                <ul>
-                  <li>Scan the QR code using the scanner within your mobile Algorand Wallet </li>
-                  <li>A pop-up will appear within the mobile app -- Click “Connect”</li>
-                  <li>At this point, your Algorand Wallet address will appear on the top right corner of the desktop landing page</li>
-                  <li>Click “Collect” on the web page, and then “Approve” the transaction within your mobile wallet</li>
-                </ul>
-
+                <BrowserView>
+                  <ul>
+                    <li>A pop-up will appear with the toggle on “Mobile” -- Click “Connect”</li>
+                    <li>Return to the landing page on your mobile browser. Your Algorand Wallet address should now appear on the top right corner of the page</li>
+                    <li>Click “Collect” to receive your asset</li>
+                  </ul>
+                </BrowserView>
+                <MobileView>
+                  <ul>
+                    <li>Scan the QR code using the scanner within your mobile Algorand Wallet </li>
+                    <li>A pop-up will appear within the mobile app -- Click “Connect”</li>
+                    <li>At this point, your Algorand Wallet address will appear on the top right corner of the desktop landing page</li>
+                    <li>Click “Collect” on the web page, and then “Approve” the transaction within your mobile wallet</li>
+                  </ul>
+                </MobileView>
                 <p>
                   Once approved and the transaction is processed, your unique 1/1 Algo Gator NFT asset will appear on this page and within your mobile Algorand wallet. (Note that the Algorand Wallet will show the Asset Name and Asset ID, not an actual image of the NFT). 
                 </p>
@@ -202,7 +198,7 @@ function HelpDropdown() {
             </p>
           </div>
         </div>
-      </Collapse>
+      </Dialog>
     </div>
   )
 
