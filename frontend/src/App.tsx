@@ -126,7 +126,7 @@ function App() {
                   {message}
               </div>
 
-              <div className='collect-button'  style={{visibility: claimable?'visible':'hidden'}}   >
+              <div className='collect-button' >
                 <Button 
                     style={{color: 'white', borderColor: 'white', borderRadius: '8px'}}
                     minimal={true} 
