@@ -7,7 +7,7 @@ import nacl from 'tweetnacl';
 import escrow_template from './contracts/escrow.tmpl.teal'
 
 export const conf = {
-    seeder: "KNZYQZYA6H2OTCS3LJDYIA4TXWJ57J7EOROALDAFXIREZXMZXRWBHI6XRE",
+    seeder: "DCIPMQ3SDOVBX5IUY65LR7BZ2R63JCULO72J7IS3W2PUNW7JTAGYEHBRRA",
     network: "TestNet",
     algod : {
         host : "https://testnet.algoexplorerapi.io",
