@@ -100,8 +100,8 @@ export async function getNFT(asaId: number): Promise<NFT> {
     const p = asa['params']
 
     // Assumes ipfs:// protocol
-    const cid = p['url'].split("://")
-    const url = "https://ipfs.io/ipfs/"+cid
+    const cid = p['url'].trim("://")
+    const url = "https://ipfs.io/ipfs/"+cid[1]
     
     return { id:   asaId, url:  url, name: p['name'] } as NFT
 }
