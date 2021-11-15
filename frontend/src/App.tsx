@@ -136,7 +136,7 @@ function App() {
                     icon='circle' 
                     text='Collect' 
                     onClick={handleCollect}  
-                    disabled={!connected}
+                    disabled={!connected || !claimable}
                     loading={loading}
                   />
                 </div>
