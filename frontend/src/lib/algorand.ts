@@ -98,7 +98,12 @@ function createSignature(txid: string, escrow: string, secret: string): Uint8Arr
 export async function getNFT(asaId: number): Promise<NFT> {
     const asa = await client.getAssetByID(asaId).do()
     const p = asa['params']
-    return { id:   asaId, url:  p['url'], name: p['name'] } as NFT
+
+    // Assumes ipfs:// protocol
+    const cid = p['url'].split("://")
+    const url = "https://ipfs.io/ipfs/"+cid
+    
+    return { id:   asaId, url:  url, name: p['name'] } as NFT
 }
 
 export async function getAsaId(escrow: string): Promise<number> {
