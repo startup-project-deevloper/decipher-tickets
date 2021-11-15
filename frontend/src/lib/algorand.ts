@@ -36,7 +36,6 @@ export async function collect(sw: SessionWallet, asaId: number, escrow: string, 
     const lsig = await getLsig(addr)
 
     const sp = await client.getTransactionParams().do()
-    sp.lastRound = sp.firstRound + 10
 
     const optinTxn = new Transaction({
         from:claimer,
