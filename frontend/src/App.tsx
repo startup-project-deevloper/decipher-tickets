@@ -170,7 +170,7 @@ function HelpDropdown() {
             <p style={{color: 'white'}}>
                 <h3>How to collect your Algo Gator</h3>
 
-                <p>First, you will need to download the Algorand Wallet and load it with at least 0.3 Algo.</p>
+                <p>First, you will need to download the <a href="https://algorandwallet.com/" >Algorand Wallet</a> and load it with at least 0.3 Algo.</p>
 
                 <p>Second, click the “Connect” button on the top right of this page and proceed as follows</p>
 
@@ -196,7 +196,7 @@ function HelpDropdown() {
                 </p>
 
                 <p>
-                  If you have any issues with the claiming process, please reach out for assistance. 
+                  If you have any issues with the claiming process, please <a href="mailto:decipherevent@algorand.com">reach out</a> for assistance. 
                 </p>
 
             </p>
