@@ -61,20 +61,41 @@ function App() {
     setClaimable(false)
     setOpen(false)
     setLoading(false)
-
   }
 
-  // For #1-444 (IRL)
-  const irl_success = `
-  Congrats on successfully collecting your Decipher Ticket!
-  Please make sure the asset is in your Algorand Mobile Wallet and ready to be presented when you arrive at the venue.
-  See you at Decipher!`.trim()
+  let message = (
+    <div>
+      <h3> Greetings Algonaut!</h3> 
+      <p> 
+      Connect your wallet and claim your ticket
+      </p>
+    </div>
+  )
 
-  // For #445-888 (Virtual)
-  const virtual_success = `
-    Congrats on successfully collecting your Algo Gator NFT!
-    Enjoy it as a commemorative token that you’ve earned by being part of the Algorand community and signing up as a virtual VIP.
-    See you online at Decipher!`.trim()
+  //nft.id=99
+  if(nft.id !== 0) {
+    if(nft.id<100){
+        message = (
+          <div>
+            <h3> Congrats on successfully collecting your Decipher Ticket!  </h3>
+            <p>
+              Please make sure the asset is in your Algorand Mobile Wallet and ready to be presented when you arrive at the venue.
+              See you at Decipher!
+            </p>
+          </div>
+        )
+    }else{
+      message = (
+        <div>
+          <h3> Congrats on successfully collecting your Algo Gator NFT!  </h3>
+          <p>
+            Enjoy it as a commemorative token that you’ve earned by being part of the Algorand community and signing up as a virtual VIP.
+            See you online at Decipher!
+          </p>
+        </div>
+      )
+    }
+  }
 
   return (
     <div className="App" style={{background: '#000'}}>
@@ -102,10 +123,7 @@ function App() {
             <div className='content-details' >
 
               <div className='detail-prose' style={{color: 'white'}} >
-                <h3> Greetings Algonaut!</h3>
-                <p> 
-                  Connect your wallet and claim your ticket
-                </p>
+                  {message}
               </div>
 
               <div className='collect-button'  style={{visibility: claimable?'visible':'hidden'}}   >
