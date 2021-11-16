@@ -8,9 +8,9 @@ import escrow_template from './contracts/escrow.tmpl.teal'
 
 export const conf = {
     seeder: "DCIPMQ3SDOVBX5IUY65LR7BZ2R63JCULO72J7IS3W2PUNW7JTAGYEHBRRA",
-    network: "TestNet",
+    network: "MainNet",
     algod : {
-        host : "https://testnet.algoexplorerapi.io",
+        host : "https://algoexplorerapi.io",
         port : "",
         token : "",
     }
@@ -75,7 +75,6 @@ export async function collect(sw: SessionWallet, asaId: number, escrow: string, 
     const s_close = algosdk.signLogicSigTransactionObject(closeTxn, lsig)
 
     const [s_optin, /*xfer*/ , /*close*/] = await sw.signTxn(grouped)
-    //const s_optin = algosdk.signTransaction(optinTxn, sk.sk)
 
     return [s_optin, s_xfer, s_close]
 }

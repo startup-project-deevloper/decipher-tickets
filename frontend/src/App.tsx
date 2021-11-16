@@ -28,9 +28,7 @@ function App() {
   const secret  = params.get("secret")
 
   useEffect(()=>{
-    if(secret === null || addr === null || escrow === null){
-      setClaimable(false)
-    }
+    setClaimable(secret !== null && addr !== null && escrow !== null)
   }, [escrow, addr, secret])
   
 
@@ -49,15 +47,16 @@ function App() {
     setOpen(true)
 
     const asaId = await getAsaId(escrow)
+
+    const nftpromise = getNFT(asaId)
+
     const txn_group = await collect(sw, asaId, escrow, addr, secret)
 
     setSigned(true)
 
     await sendWait(txn_group)
 
-    const nft = await getNFT(asaId)
-
-    setNFT(nft)
+    setNFT(await nftpromise)
     setClaimable(false)
     setOpen(false)
     setLoading(false)
@@ -225,9 +224,9 @@ function ClaimDialog(props: ClaimDialogProps){
     let p = 0
     if(!signed || progress > 0 || progress >= 1.0) return;
 
-    // 8 second "fake" timer just to give enough time to submit txn and 
+    // "fake" timer just to give enough time to submit txn and 
     // have it confirmed on the network, then load the NFT details
-    const step = 100 / (8 * 1000) 
+    const step = 100 / (6 * 1000) 
     const interval = setInterval(()=>{
         p += step
         if(p > 1.0) {
