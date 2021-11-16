@@ -5,7 +5,6 @@ import { Alignment, AnchorButton, Button, Card, Elevation, Navbar, ProgressBar }
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
 import { BrowserView, MobileView } from 'react-device-detect'
-import { visitEachChild } from 'typescript';
 
 
 
@@ -18,6 +17,7 @@ function App() {
   const [connected, setConnected]   = React.useState(sw.connected())
   const [claimable, setClaimable]   = React.useState(true)
 
+  const [imgLoading, setImgLoading] = React.useState(true)
   const [loading, setLoading]       = React.useState(false)
   const [signed, setSigned]         = React.useState(false)
   const [open, setOpen]             = React.useState(false)
@@ -39,6 +39,11 @@ function App() {
     setConnected(sw.connected())
   }
 
+
+  function imgLoaded(){
+    setImgLoading(false)
+  }
+
   function handleDownload(){
     var a = document.createElement('a');
     a.href = nft.url;
@@ -47,8 +52,9 @@ function App() {
     a.click();
     document.body.removeChild(a);
   }
+
   async function handleCollect() {
-    if(secret === null || addr == null || escrow == null){
+    if(secret === null || addr === null || escrow === null){
       return
     }
 
@@ -65,7 +71,9 @@ function App() {
 
     await sendWait(txn_group)
 
+    setImgLoading(true)
     setNFT(await nftpromise)
+
     setClaimable(false)
     setOpen(false)
     setLoading(false)
@@ -105,7 +113,7 @@ function App() {
   }
 
   let buttons; 
-  if(nft.id == 0){
+  if(nft.id === 0){
    buttons = (   
     <Button 
           style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
@@ -140,8 +148,9 @@ function App() {
               outlined={true} 
               large={true} 
               intent='success' 
-              href={'https://nftexplorer.app/'+nft.id} >
-              <img style={{width:'20px', marginTop:'4px'}} alt='nft explorer icon' src='/nftexplorer.ico' /> 
+              href={'https://www.nftexplorer.app/asset/'+nft.id} >
+              <img style={{width:'20px', float:'left', marginRight:'8px'}} alt='nft explorer icon' src='/nftexplorer.ico' /> 
+              NFT Explorer
             </AnchorButton>
         </div>
       )
@@ -168,7 +177,7 @@ function App() {
           <div className='content' >
 
             <div className='content-piece' >
-              <img alt='NFT' className='gator' src={nft.url} />
+              <img alt='NFT' className={'gator '+ imgLoading?'bp3-skeleton':''} src={nft.url} onLoad={imgLoaded} />
             </div>
             <div className='content-details' >
 
