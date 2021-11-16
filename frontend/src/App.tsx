@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { SessionWallet } from 'algorand-session-wallet';
 import AlgorandWalletConnector from './AlgorandWalletConnector'
-import { Alignment, Button, Card, Collapse, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
+import { Alignment, Button, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
 import { BrowserView, MobileView } from 'react-device-detect'
@@ -72,7 +72,6 @@ function App() {
     </div>
   )
 
-  //nft.id=99
   if(nft.id !== 0) {
     if(nft.id<420774977){
         message = (
@@ -126,7 +125,7 @@ function App() {
                   {message}
               </div>
 
-              <div className='collect-button' >
+              <div className='collect-button' style={{visibility: nft.id === 0 ?'visible':'hidden'}}  >
                 <Button 
                     style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
                     minimal={true} 
