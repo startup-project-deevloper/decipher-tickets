@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { SessionWallet } from 'algorand-session-wallet';
 import AlgorandWalletConnector from './AlgorandWalletConnector'
-import { Alignment, Button, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
+import { Alignment, AnchorButton, Button, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
 import { BrowserView, MobileView } from 'react-device-detect'
+import { visitEachChild } from 'typescript';
 
 
 
@@ -38,6 +39,14 @@ function App() {
     setConnected(sw.connected())
   }
 
+  function handleDownload(){
+    var a = document.createElement('a');
+    a.href = nft.url;
+    a.download = nft.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
   async function handleCollect() {
     if(secret === null || addr == null || escrow == null){
       return
@@ -95,6 +104,49 @@ function App() {
     }
   }
 
+  let buttons; 
+  if(nft.id == 0){
+   buttons = (   
+    <Button 
+          style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
+          minimal={true} 
+          outlined={true} 
+          intent='success' 
+          large={true} 
+          icon='circle' 
+          text='Collect' 
+          onClick={handleCollect}  
+          disabled={!connected || !claimable}
+          loading={loading}
+        />
+    )
+
+    }else{
+      buttons = (
+        <div>
+          <Button 
+              style={{color: 'white', borderColor: 'white', borderRadius: '8px', margin: '8px'}}
+              minimal={true} 
+              outlined={true} 
+              intent='success' 
+              large={true} 
+              icon='download' 
+              text='Download' 
+              onClick={handleDownload}  
+            />
+          <AnchorButton 
+              style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '8px'}}
+              minimal={true} 
+              outlined={true} 
+              large={true} 
+              intent='success' 
+              href={'https://nftexplorer.app/'+nft.id} >
+              <img style={{width:'20px', marginTop:'4px'}} alt='nft explorer icon' src='/nftexplorer.ico' /> 
+            </AnchorButton>
+        </div>
+      )
+  }
+
   return (
     <div className="App" style={{background: '#000'}}>
       <Navbar style={{background: 'linear-gradient(90deg,#b72375 3%,#f37e33 97%)'}}>
@@ -124,20 +176,10 @@ function App() {
                   {message}
               </div>
 
-              <div className='collect-button' style={{visibility: nft.id === 0 ?'visible':'hidden'}}  >
-                <Button 
-                    style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
-                    minimal={true} 
-                    outlined={true} 
-                    intent='success' 
-                    large={true} 
-                    icon='circle' 
-                    text='Collect' 
-                    onClick={handleCollect}  
-                    disabled={!connected || !claimable}
-                    loading={loading}
-                  />
-                </div>
+              <div className='collect-button' >
+                {buttons}
+              </div>
+
             </div>
           </div>
         </Card>
