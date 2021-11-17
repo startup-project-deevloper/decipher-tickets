@@ -50,12 +50,13 @@ function App() {
   }
 
   function handleDownload(){
-    var a = document.createElement('a');
-    a.href = nft.url;
-    a.download = nft.name;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    var a = document.createElement('a')
+    a.href = nft.url
+    a.download = nft.name
+    a.target = "_blank"
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
   }
 
   async function handleCollect() {
