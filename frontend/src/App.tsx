@@ -61,18 +61,20 @@ function App() {
     setLoading(true)
     setOpen(true)
 
-    const asaId = await getAsaId(escrow)
+    try {
+      const asaId       = await getAsaId(escrow)
+      const txn_group   = await collect(sw, asaId, escrow, addr, secret)
+      const nftpromise  = getNFT(asaId)
 
-    const nftpromise = getNFT(asaId)
+      setSigned(true)
 
-    const txn_group = await collect(sw, asaId, escrow, addr, secret)
+      await sendWait(txn_group)
 
-    setSigned(true)
-
-    await sendWait(txn_group)
-
-    setImgLoading(true)
-    setNFT(await nftpromise)
+      setImgLoading(true)
+      setNFT(await nftpromise)
+    } catch (error) {
+      alert("Something went wrong: "+error) 
+    }
 
     setClaimable(false)
     setOpen(false)

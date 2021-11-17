@@ -106,7 +106,7 @@ export async function getNFT(asaId: number): Promise<NFT> {
 
 export async function getAsaId(escrow: string): Promise<number> {
     const ai = await client.accountInformation(escrow).do()
-    if(ai['assets'].length !== 1) throw Error("wat")
+    if(ai['assets'].length !== 1) throw Error("Expected 1 ASA for "+escrow+" got: "+ai['assets'].length.toString())
     return ai['assets'][0]['asset-id']
 }
 
