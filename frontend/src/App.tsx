@@ -20,7 +20,7 @@ function App() {
   const [imgLoading, setImgLoading] = React.useState(true)
   const [loading, setLoading]       = React.useState(false)
   const [signed, setSigned]         = React.useState(false)
-  const [open, setOpen]             = React.useState(false)
+  const [open, setOpen]             = React.useState(true)
 
 
   const params  = new URLSearchParams(window.location.search);
@@ -322,10 +322,9 @@ function ClaimDialog(props: ClaimDialogProps){
           <div className='container' style={{color:'white'}}>
             <p><b>Please Approve the transaction in your Mobile Wallet. </b></p>
             <Button 
-              style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '20px 0px -20px'}}
+              style={{color: 'gray', borderColor: 'gray', borderRadius: '4px',  margin: '30px 0px -30px'}}
               minimal={true}
               outlined={true}
-              large = {true}
               onClick={props.triggerHelp} 
               text='Having Issues?' 
               />
