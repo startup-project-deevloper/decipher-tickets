@@ -233,7 +233,7 @@ function HelpDropdown() {
 
                 <p>
                   First, you will need to download the <a href="https://algorandwallet.com/">Algorand Wallet</a> 
-                  (make sure you have the latest version) and load it with at least 0.3 Algo. 
+                  (make sure you have the <b>latest version</b>) and load it with at least 0.3 Algo. 
                 </p>
 
                 <p>Second, click the “Connect” button on the top right of this page and proceed as follows</p>
@@ -261,8 +261,8 @@ function HelpDropdown() {
                 </p>
 
                 <p>
-                  <b> Not working? </b> Try turning the mobile app off and on again.
-                  Then, if you can, post some details <a href='https://github.com/algorand/algorand-wallet/issues/36' >here</a>.
+                  <b> Not working? </b> Try turning the mobile app off and on again. 
+                  Also please check your App Store to ensure your Algorand Mobile Wallet is updated to the latest version.
                 </p>
 
                 <p>
