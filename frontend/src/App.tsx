@@ -49,9 +49,12 @@ function App() {
     setImgLoading(false)
   }
 
-  function handleDownload(){
+  async function handleDownload(){
     var a = document.createElement('a')
-    a.href = nft.url
+    const image = await fetch(nft.url)
+    const imageBlog = await image.blob()
+    const imageURL = URL.createObjectURL(imageBlog)
+    a.href = imageURL 
     a.download = nft.name
     a.target = "_blank"
     document.body.appendChild(a)
@@ -157,7 +160,8 @@ function App() {
               outlined={true} 
               large={true} 
               intent='success' 
-              href={'https://www.nftexplorer.app/asset/'+nft.id} >
+              href={'https://www.nftexplorer.app/asset/'+nft.id} 
+              target="_blank" >
               <img style={{width:'20px', float:'left', marginRight:'8px'}} alt='nft explorer icon' src='/nftexplorer.ico' /> 
               NFT Explorer
             </AnchorButton>
