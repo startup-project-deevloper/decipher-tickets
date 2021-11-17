@@ -4,7 +4,7 @@ import AlgorandWalletConnector from './AlgorandWalletConnector'
 import { Alignment, AnchorButton, Button, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
-import { BrowserView, MobileView } from 'react-device-detect'
+import { BrowserView, MobileView, isIOS } from 'react-device-detect'
 
 
 
@@ -320,14 +320,28 @@ function ClaimDialog(props: ClaimDialogProps){
         <div className={Classes.DIALOG_BODY}>
           {!signed?(
           <div className='container' style={{color:'white'}}>
+            <div className='container' >
             <p><b>Please Approve the transaction in your Mobile Wallet. </b></p>
-            <Button 
-              style={{color: 'gray', borderColor: 'gray', borderRadius: '4px',  margin: '30px 0px -30px'}}
-              minimal={true}
-              outlined={true}
-              onClick={props.triggerHelp} 
-              text='Having Issues?' 
-              />
+              <MobileView >
+                <AnchorButton 
+                  style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '30px 0px -30px'}}
+                  text='Take me there' 
+                  href={ isIOS ? "algorand-wc://wc?uri=wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1":"wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1" }
+                  large={true}
+                  minimal={true}
+                  outlined={true}
+                  />
+              </MobileView>
+            </div>
+            <div className='container' >
+              <Button 
+                style={{color: 'gray', borderColor: 'gray', borderRadius: '4px',  margin: '30px 0px -30px'}}
+                minimal={true}
+                outlined={true}
+                onClick={props.triggerHelp} 
+                text='Having Issues?' 
+                />
+              </div>
           </div>
           ):(
             <ProgressBar animate={true} intent='success' value={progress} />
