@@ -20,7 +20,7 @@ function App() {
   const [imgLoading, setImgLoading] = React.useState(true)
   const [loading, setLoading]       = React.useState(false)
   const [signed, setSigned]         = React.useState(false)
-  const [open, setOpen]             = React.useState(true)
+  const [open, setOpen]             = React.useState(false)
 
 
   const params  = new URLSearchParams(window.location.search);
