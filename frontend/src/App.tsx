@@ -39,6 +39,11 @@ function App() {
     setConnected(sw.connected())
   }
 
+  function triggerHelp() {
+    setOpen(false)
+    setLoading(false)
+    document.getElementById("help-text")?.click()
+  }
 
   function imgLoaded(){
     setImgLoading(false)
@@ -72,11 +77,12 @@ function App() {
 
       setImgLoading(true)
       setNFT(await nftpromise)
+
+      setClaimable(false)
     } catch (error) {
       alert("Something went wrong: "+error) 
     }
 
-    setClaimable(false)
     setOpen(false)
     setLoading(false)
   }
@@ -200,7 +206,7 @@ function App() {
         <HelpDropdown />
       </div>
 
-      <ClaimDialog open={open} signed={signed} />
+      <ClaimDialog triggerHelp={triggerHelp} open={open} signed={signed} />
     </div>
   );
 
@@ -211,7 +217,7 @@ function HelpDropdown() {
 
   return (
     <div className='help-container'>
-      <Button icon='help' minimal={true} intent='primary' outlined={true} onClick={() => setIsOpen(true)} >
+      <Button id='help-text' icon='help' minimal={true} intent='primary' outlined={true} onClick={() => setIsOpen(true)} >
         Need Help?
       </Button>
       <Dialog isOpen={isOpen} canEscapeKeyClose={true} canOutsideClickClose={true} isCloseButtonShown={true} onClose={() => setIsOpen(false)} >
@@ -220,26 +226,38 @@ function HelpDropdown() {
             <p style={{color: '#000 !important'}}>
                 <h3>How to collect your Algo Gator</h3>
 
-                <p>First, you will need to download the <a href="https://algorandwallet.com/" >Algorand Wallet</a> and load it with at least 0.3 Algo.</p>
+                <p>
+                  First, you will need to download the <a href="https://algorandwallet.com/">Algorand Wallet</a> 
+                  (make sure you have the latest version) and load it with at least 0.3 Algo. 
+                </p>
 
                 <p>Second, click the “Connect” button on the top right of this page and proceed as follows</p>
-                <BrowserView>
+
+                <MobileView>
                   <ul>
                     <li>A pop-up will appear with the toggle on “Mobile” -- Click “Connect”</li>
                     <li>Return to the landing page on your mobile browser. Your Algorand Wallet address should now appear on the top right corner of the page</li>
-                    <li>Click “Collect” to receive your asset</li>
+                    <li>Click “Collect” on the web page in your mobile browser, and then switch to the wallet App to “Approve” the transaction</li>
                   </ul>
-                </BrowserView>
-                <MobileView>
+                </MobileView>
+                <BrowserView>
                   <ul>
                     <li>Scan the QR code using the scanner within your mobile Algorand Wallet </li>
                     <li>A pop-up will appear within the mobile app -- Click “Connect”</li>
                     <li>At this point, your Algorand Wallet address will appear on the top right corner of the desktop landing page</li>
                     <li>Click “Collect” on the web page, and then “Approve” the transaction within your mobile wallet</li>
                   </ul>
-                </MobileView>
+                </BrowserView>
+
                 <p>
-                  Once approved and the transaction is processed, your unique 1/1 Algo Gator NFT asset will appear on this page and within your mobile Algorand wallet. (Note that the Algorand Wallet will show the Asset Name and Asset ID, not an actual image of the NFT). 
+                  Once approved and the transaction is processed, your unique 1/1 Algo Gator NFT asset will appear on this page 
+                  and within your mobile Algorand wallet. 
+                  (Note that the Algorand Wallet will show the Asset Name and Asset ID, not an actual image of the NFT...yet). 
+                </p>
+
+                <p>
+                  <b> Not working? </b> Try turning the mobile app off and on again.
+                  Then, if you can, post some details <a href='https://github.com/algorand/algorand-wallet/issues/36' >here</a>.
                 </p>
 
                 <p>
@@ -252,13 +270,13 @@ function HelpDropdown() {
       </Dialog>
     </div>
   )
-
 }
 
 
 interface ClaimDialogProps {
   open: boolean
   signed: boolean
+  triggerHelp(): void 
 }
 
 function ClaimDialog(props: ClaimDialogProps){
@@ -298,8 +316,14 @@ function ClaimDialog(props: ClaimDialogProps){
           {!signed?(
           <div className='container' style={{color:'white'}}>
             <p><b>Please Approve the transaction in your Mobile Wallet. </b></p>
-            <p>You may have to refresh your Wallet Connect session</p>
-            <p>On your mobile app under Settings - Wallet Connect</p>
+            <Button 
+              style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '20px 0px -20px'}}
+              minimal={true}
+              outlined={true}
+              large = {true}
+              onClick={props.triggerHelp} 
+              text='Having Issues?' 
+              />
           </div>
           ):(
             <ProgressBar animate={true} intent='success' value={progress} />
