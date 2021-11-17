@@ -235,7 +235,7 @@ function HelpDropdown() {
 
                 <MobileView>
                   <ul>
-                    <li>A pop-up will appear with the toggle on “Mobile” -- Click “Connect”</li>
+                    <li>A pop-up will appear with the toggle on “Mobile” -- Choose the account you wish to use -- Click “Connect”</li>
                     <li>Return to the landing page on your mobile browser. Your Algorand Wallet address should now appear on the top right corner of the page</li>
                     <li>Click “Collect” on the web page in your mobile browser, and then switch to the wallet App to “Approve” the transaction</li>
                   </ul>
@@ -243,7 +243,7 @@ function HelpDropdown() {
                 <BrowserView>
                   <ul>
                     <li>Scan the QR code using the scanner within your mobile Algorand Wallet </li>
-                    <li>A pop-up will appear within the mobile app -- Click “Connect”</li>
+                    <li>A pop-up will appear within the mobile app -- Choose the account you wish to use -- Click “Connect”</li>
                     <li>At this point, your Algorand Wallet address will appear on the top right corner of the desktop landing page</li>
                     <li>Click “Collect” on the web page, and then “Approve” the transaction within your mobile wallet</li>
                   </ul>
