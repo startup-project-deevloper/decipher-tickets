@@ -258,7 +258,7 @@ function HelpDropdown() {
                   Also please check your App Store to ensure your Algorand Mobile Wallet is updated to the latest version.
                 </p>
                 <p>
-                  <b>Still not working?</b> During tested we noticed some issues when the entire processes is done using Mobile Safari. 
+                  <b>Still not working?</b> During testing we noticed some issues when the entire processes is done using Mobile Safari. 
                   If you're having issues on mobile, please try to access the link from a desktop browser.
                 </p>
 
