@@ -145,6 +145,7 @@ function App() {
               Please make sure the asset is in your Algorand Mobile Wallet and ready to be presented when you arrive at the venue.
               See you at Decipher!
             </p>
+            <p><b>Note: </b>If the image of your Algo Gator isn't appearing yet, give it a moment, it might be shy</p>
           </div>
         )
     }else{
@@ -155,6 +156,7 @@ function App() {
             Enjoy it as a commemorative token that you’ve earned by being part of the Algorand community and signing up as a virtual VIP.
             See you online at Decipher!
           </p>
+          <p><b>Note: </b>If the image of your Algo Gator isn't appearing yet, give it a moment, it might be shy</p>
         </div>
       )
     }
