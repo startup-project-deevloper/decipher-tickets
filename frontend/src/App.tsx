@@ -316,29 +316,32 @@ function ClaimDialog(props: ClaimDialogProps){
   }, [signed, progress])
 
   return (
-      <Dialog isOpen={isOpen} onClose={handleClose} style={{background: '#000'}}>
+      <Dialog isOpen={isOpen} onClose={handleClose} style={{background: 'lightgray'}}>
         <div className={Classes.DIALOG_BODY}>
           {!signed?(
-          <div className='container' style={{color:'white'}}>
+          <div className='container' >
             <div className='container' >
             <p><b>Please Approve the transaction in your Mobile Wallet. </b></p>
               <MobileView >
                 <AnchorButton 
-                  style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '30px 0px -30px'}}
+                  style={{ borderRadius: '8px',  margin: '20px 0px -30px'}}
                   text='Take me there' 
                   href={ isIOS ? "algorand-wc://wc?uri=wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1":"wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1" }
+                  intent="success"
                   large={true}
                   minimal={true}
                   outlined={true}
+                  rightIcon="double-chevron-right"
                   />
               </MobileView>
             </div>
             <div className='container' >
               <Button 
-                style={{color: 'gray', borderColor: 'gray', borderRadius: '4px',  margin: '30px 0px -30px'}}
+                style={{ borderRadius: '4px',  margin: '40px 0px -50px'}}
                 minimal={true}
                 outlined={true}
                 onClick={props.triggerHelp} 
+                intent="warning"
                 text='Having Issues?' 
                 />
               </div>
