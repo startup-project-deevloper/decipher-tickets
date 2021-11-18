@@ -16,8 +16,8 @@ function App() {
   const [accts, setAccounts]        = React.useState(sw.accountList())
   const [connected, setConnected]   = React.useState(sw.connected())
   const [claimable, setClaimable]   = React.useState(true)
+  const [claimed, setClaimed]       = React.useState(false)
 
-  const [imgLoading, setImgLoading] = React.useState(true)
   const [loading, setLoading]       = React.useState(false)
   const [signed, setSigned]         = React.useState(false)
   const [open, setOpen]             = React.useState(false)
@@ -45,10 +45,6 @@ function App() {
     document.getElementById("help-text")?.click()
   }
 
-  function imgLoaded(){
-    setImgLoading(false)
-  }
-
   async function handleDownload(){
     var a = document.createElement('a')
     const image = await fetch(nft.url)
@@ -73,16 +69,15 @@ function App() {
     try {
       const asaId       = await getAsaId(escrow)
       const txn_group   = await collect(sw, asaId, escrow, addr, secret)
-      const nftpromise  = getNFT(asaId)
 
       setSigned(true)
 
+      getNFT(asaId).then((nft)=>{ setNFT(nft) })
+      
       await sendWait(txn_group)
 
-      setImgLoading(true)
-      setNFT(await nftpromise)
-
       setClaimable(false)
+      setClaimed(true)
     } catch (error) {
       alert("Something went wrong: "+error) 
     }
@@ -100,7 +95,48 @@ function App() {
     </div>
   )
 
-  if(nft.id !== 0) {
+  let buttons = (   
+    <Button 
+          style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
+          minimal={true} 
+          outlined={true} 
+          intent='success' 
+          large={true} 
+          icon='circle' 
+          text='Collect' 
+          onClick={handleCollect}  
+          disabled={!connected || !claimable}
+          loading={loading}
+        />
+    )
+
+  if(nft.id !== 0 && claimed === true) {
+    buttons = (
+      <div>
+        <Button 
+            style={{color: 'white', borderColor: 'white', borderRadius: '8px', margin: '8px'}}
+            minimal={true} 
+            outlined={true} 
+            intent='success' 
+            large={true} 
+            icon='download' 
+            text='Download' 
+            onClick={handleDownload}  
+          />
+        <AnchorButton 
+            style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '8px'}}
+            minimal={true} 
+            outlined={true} 
+            large={true} 
+            intent='success' 
+            href={'https://www.nftexplorer.app/asset/'+nft.id} 
+            target="_blank" >
+            <img style={{width:'20px', float:'left', marginRight:'8px'}} alt='nft explorer icon' src='/nftexplorer.ico' /> 
+            NFT Explorer
+          </AnchorButton>
+      </div>
+    )
+
     if(nft.id<420774977){
         message = (
           <div>
@@ -124,51 +160,6 @@ function App() {
     }
   }
 
-  let buttons; 
-  if(nft.id === 0){
-   buttons = (   
-    <Button 
-          style={{color: 'white', borderColor: 'white', borderRadius: '8px', width: '100%', marginTop: '8px'}}
-          minimal={true} 
-          outlined={true} 
-          intent='success' 
-          large={true} 
-          icon='circle' 
-          text='Collect' 
-          onClick={handleCollect}  
-          disabled={!connected || !claimable}
-          loading={loading}
-        />
-    )
-
-    }else{
-      buttons = (
-        <div>
-          <Button 
-              style={{color: 'white', borderColor: 'white', borderRadius: '8px', margin: '8px'}}
-              minimal={true} 
-              outlined={true} 
-              intent='success' 
-              large={true} 
-              icon='download' 
-              text='Download' 
-              onClick={handleDownload}  
-            />
-          <AnchorButton 
-              style={{color: 'white', borderColor: 'white', borderRadius: '8px',  margin: '8px'}}
-              minimal={true} 
-              outlined={true} 
-              large={true} 
-              intent='success' 
-              href={'https://www.nftexplorer.app/asset/'+nft.id} 
-              target="_blank" >
-              <img style={{width:'20px', float:'left', marginRight:'8px'}} alt='nft explorer icon' src='/nftexplorer.ico' /> 
-              NFT Explorer
-            </AnchorButton>
-        </div>
-      )
-  }
-
   return (
     <div className="App" style={{background: '#000'}}>
       <Navbar style={{background: 'linear-gradient(90deg,#b72375 3%,#f37e33 97%)'}}>
@@ -190,7 +181,7 @@ function App() {
           <div className='content' >
 
             <div className='content-piece' >
-              <img alt='NFT' className={'gator '+ imgLoading?'bp3-skeleton':''} src={nft.url} onLoad={imgLoaded} />
+              <img alt='NFT' className='gator'  src={nft.url} />
             </div>
             <div className='content-details' >
 
