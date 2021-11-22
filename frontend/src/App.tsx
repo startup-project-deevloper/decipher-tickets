@@ -137,7 +137,7 @@ function App() {
       </div>
     )
 
-    if(nft.id<420774977){
+    if(nft.id<420800534){
         message = (
           <div>
             <h3> Congrats on successfully collecting your Decipher Ticket!  </h3>
