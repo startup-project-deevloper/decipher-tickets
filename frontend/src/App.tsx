@@ -90,7 +90,7 @@ function App() {
     <div>
       <h3> Greetings Algonaut!</h3> 
       <p> 
-      Connect your wallet and collect your NFT ticket
+      Connect your wallet and collect your Algo Gator NFT
       </p>
     </div>
   )
