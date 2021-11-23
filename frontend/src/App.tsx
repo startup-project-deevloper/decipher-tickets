@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { SessionWallet } from 'algorand-session-wallet';
 import AlgorandWalletConnector from './AlgorandWalletConnector'
-import { Alignment, AnchorButton, Button, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
+import { Alignment, AnchorButton, Button, Callout, Card, Elevation, Navbar, ProgressBar } from '@blueprintjs/core';
 import { conf, collect, sendWait, getAsaId, getNFT }  from './lib/algorand'
 import { Classes, Dialog } from "@blueprintjs/core";
-import { BrowserView, MobileView, isIOS } from 'react-device-detect'
+import { BrowserView, MobileView, isIOS, isMobileSafari } from 'react-device-detect'
 
 
 
@@ -21,7 +21,6 @@ function App() {
   const [loading, setLoading]       = React.useState(false)
   const [signed, setSigned]         = React.useState(false)
   const [open, setOpen]             = React.useState(false)
-
 
   const params  = new URLSearchParams(window.location.search);
   const escrow  = params.get("escrow")
@@ -205,6 +204,7 @@ function App() {
       </div>
 
       <ClaimDialog triggerHelp={triggerHelp} open={open} signed={signed} />
+      <SafariBugFixDialog />
     </div>
   );
 
@@ -274,6 +274,35 @@ function HelpDropdown() {
   )
 }
 
+
+function SafariBugFixDialog() {
+  const [isOpen, setIsOpen] = React.useState(isMobileSafari)
+
+  return (
+    <Dialog isOpen={isOpen} style={{background: 'lightgray'}}>
+        <div className={Classes.DIALOG_BODY}>
+          <h3>Hi! It looks like you're visiting from Safari Mobile.</h3>
+          <p>Unfortunately there is an experimental setting enabled by default on iOS that breaks the network connections with the mobile wallet.</p>
+          <p><b>Current options:</b></p>
+          <ul >
+            <li>
+              <p>
+                Disable the setting as described <a target="_blank" href='https://developer.apple.com/forums/thread/685403?answerId=689525022#689525022'>here</a>
+              </p>
+              <Callout>
+                <p>Safari Settings</p>
+                <p>{"->Advanced"}</p>
+                <p>{"-->Experimental Features"}</p>
+                <p>{"---->NSURLSession WebSocket to off"}</p> 
+              </Callout>
+            </li> 
+            <li>Or visit this site on a desktop browser</li> 
+          </ul>
+        </div>
+    </Dialog>
+  )
+
+}
 
 interface ClaimDialogProps {
   open: boolean
