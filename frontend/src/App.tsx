@@ -276,12 +276,12 @@ function HelpDropdown() {
 
 
 function SafariBugFixDialog() {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(isMobileSafari)
 
   return (
     <Dialog isOpen={isOpen} style={{background: 'lightgray'}}>
         <div className={Classes.DIALOG_BODY}>
-          <h3>Hi! It looks like you're visiting from Safari Mobile.</h3>
+          <h3>Hi! It looks like you're visiting from a mobile browser on iOS.</h3>
           <p>Unfortunately there is an experimental setting enabled by default on iOS that breaks the network connections with the mobile wallet.</p>
           <p><b>Current options:</b></p>
           <ul >
