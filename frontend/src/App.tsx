@@ -78,11 +78,17 @@ function App() {
       setClaimable(false)
       setClaimed(true)
     } catch (error) {
-      alert("Something went wrong: "+error) 
+      const e = error as Error
+      if(e.message.includes("overspend")){
+        alert("This account doe not have enough Algos to claim. If needed, contact decipherevent@algorand.com") 
+      }else{
+        alert("Something went wrong: "+error) 
+      }
+    }finally{
+      setOpen(false)
+      setLoading(false)
     }
 
-    setOpen(false)
-    setLoading(false)
   }
 
   let message = (
@@ -276,7 +282,7 @@ function HelpDropdown() {
 
 
 function SafariBugFixDialog() {
-  const [isOpen, setIsOpen] = React.useState(isMobileSafari)
+  const [isOpen, _] = React.useState(isMobileSafari)
 
   return (
     <Dialog isOpen={isOpen} style={{background: 'lightgray'}}>
@@ -287,7 +293,8 @@ function SafariBugFixDialog() {
           <ul >
             <li>
               <p>
-                Disable the setting as described <a target="_blank" href='https://developer.apple.com/forums/thread/685403?answerId=689525022#689525022'>here</a>
+                Disable the setting as described 
+                <a rel="noreferrer" target="_blank" href='https://developer.apple.com/forums/thread/685403?answerId=689525022#689525022'>here</a>
               </p>
               <Callout>
                 <p>Safari Settings</p>
