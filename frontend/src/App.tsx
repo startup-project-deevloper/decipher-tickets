@@ -285,7 +285,7 @@ function SafariBugFixDialog() {
   const [isOpen, _] = React.useState(isMobileSafari)
 
   return (
-    <Dialog isOpen={isOpen} style={{background: 'lightgray'}}>
+    <Dialog isOpen={isOpen} style={{background: 'lightgray'}} isCloseButtonShown={true}>
         <div className={Classes.DIALOG_BODY}>
           <h3>Hi! It looks like you're visiting from a mobile browser on iOS.</h3>
           <p>Unfortunately there is an experimental setting enabled by default on iOS that breaks the network connections with the mobile wallet.</p>
