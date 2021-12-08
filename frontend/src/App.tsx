@@ -283,6 +283,9 @@ function HelpDropdown() {
 
 function SafariBugFixDialog() {
   const [isOpen,setIsopen] = React.useState(isMobileSafari)
+  useEffect(() => {
+    setIsOpen(isOpen)
+  }, [])
 
   return (
     <Dialog isOpen={isOpen} style={{background: 'lightgray'}} isCloseButtonShown={true}>
